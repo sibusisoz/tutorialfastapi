@@ -29,7 +29,7 @@ app.include_router(vote.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Sawubona Mhlaba wethu!!! Kuhlo ubaba wenu osemhlabeni"}
+    return {"message": "Sawubona Mhlaba wethu!!! Kusho ubaba wenu osemhlabeni"}
 
 # from fastapi import Body, FastAPI, Response, status, HTTPException, Depends, APIRouter
 # from fastapi.params import Body

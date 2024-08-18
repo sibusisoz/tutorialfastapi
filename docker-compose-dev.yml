@@ -1,0 +1,43 @@
+name: "tutorialfastapi"
+services:
+   api:
+     build: .
+     depends_on:
+       - postgres
+
+     ports:
+       -  8000:8000 
+
+     volumes:
+       - ./:/usr/src/app
+
+     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload  
+
+     # env_file:
+     #    - ./.env
+     environment:
+      - DATABASE_HOSTNAME = postgres
+      - DATABASE_PORT = 5432
+      - DATABASE_PASSWORD = Mcdaddy1
+      - DATABASE_NAME = fastapi
+      - DATABASE_USERNAME = fastapi_dev
+      - SECRET_KEY = 09d25e094faa2556c818166b7a99f6f0f4c3b88e8d3e7 
+      - ALGORITHM = HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES = 60  
+   
+   postgres:
+     image: postgres
+     environment:
+        - POSTGRES_USER=fastapi_dev
+        - POSTGRES_PASSWORD=Mcdaddy1
+        - POSTGRES_DB=fastapi
+        - POSTGRES_HOST=localhost
+      
+
+     volumes:
+        - postgres-db:/var/lib/postgresql/data 
+     #command: postgres -p 5432  
+  
+
+volumes:
+  postgres-db:      

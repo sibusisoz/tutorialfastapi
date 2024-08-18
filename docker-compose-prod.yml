@@ -1,0 +1,43 @@
+name: "tutorialfastapi"
+services:
+   api:
+     image: sibusisoz/tutorialfastapi 
+     depends_on:
+       - postgres
+
+     ports:
+       -  80:8000 
+
+     volumes:
+       - ./:/usr/src/app
+
+    #  command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload  
+
+     # env_file:
+     #    - ./.env
+     environment:
+      - DATABASE_HOSTNAME=${DATABASE_HOSTNAME}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=${ALGORITHM}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
+   
+   postgres:
+     image: postgres
+     environment:
+        - POSTGRES_USER=${DATABASE_USERNAME}
+        - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+        - POSTGRES_DB=${DATABASE_NAME}
+        - POSTGRES_HOST=${DATABASE_HOSTNAME}
+      
+
+     volumes:
+        - postgres-db:/var/lib/postgresql/data 
+     #command: postgres -p 5432  
+  
+
+volumes:
+  postgres-db:      
