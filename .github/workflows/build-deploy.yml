@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: '3.12' 
       - name: update
-         run: python  -m pip install --upgrade pip
+         run: python -m pip install --upgrade pip
       - name: intall all dependencies
          run: pip3 install -r requirements.txt
     
